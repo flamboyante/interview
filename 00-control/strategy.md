@@ -39,7 +39,7 @@ SoC 底层系统软件工程师
 
 - SmartFusion2 MSS + MiV-RV32 双 ELF 固件项目，用户为主负责开发人。
 - 日常工作覆盖裸机固件、Linux 驱动、硬件联调、协议、数据流、异常上报、重构等。
-- Linux 方向以 PCIe 模块为主要证据，同时了解 SPI/UART 等外设驱动基础。
+- Linux 方向以 PCIe 驱动和用户态控制层为主要证据，同时通过 SPI/UART/UIO 体现 BSP/外设覆盖面。
 - QEMU 建模可作为差异化能力，不作为当前唯一主线。
 
 ## 阶段优先级
@@ -87,4 +87,3 @@ SoC 底层系统软件工程师
 - `01-profile/career-profile.md`
 - `90-assistant-notes/evidence-map.md`
 - 本策略文件
-

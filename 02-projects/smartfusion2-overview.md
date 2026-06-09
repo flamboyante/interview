@@ -2,12 +2,12 @@
 
 ## 定位
 
-这是当前最核心的项目证据。项目基于 Microchip/Microsemi SmartFusion2，包含 Cortex-M3 MSS 与 MiV-RV32 RISC-V 软核两个固件工程。两个工程分别生成 ELF，承担不同功能模块，并通过 fabric/mailbox/寄存器方式协同。
+这是当前最核心的项目证据。项目基于 Microchip/Microsemi SmartFusion2，主项目是运行在 Cortex-M3 MSS 上的 `V3LoadX` 高可靠通信控制与在线维护固件；MiV-RV32 RISC-V 软核工程是 SmartFusion2 系统中的一个子模块/辅助控制框架。两个工程分别生成 ELF，承担不同功能模块，并通过 fabric/mailbox/寄存器方式协同。
 
 当前总控层面的推荐表达：
 
 ```text
-基于 SmartFusion2 MSS + MiV-RV32 软核平台，主负责双 ELF 裸机固件开发，覆盖 Cortex-M3 高可靠通信控制、RISC-V 软核外设控制、PL 寄存器协同、远程维护、异常上报和板级调试闭环。
+基于 SmartFusion2 Cortex-M3 MSS 平台主负责 V3LoadX 高可靠通信控制与在线维护固件开发，同时维护 MiV-RV32 软核辅助控制 ELF，覆盖多链路通信、远程升级、Flash/JTAG 维护、PL 寄存器协同、双核 mailbox 通信、异常上报和板级调试闭环。
 ```
 
 ## 工程一：V3LoadX / Cortex-M3 MSS
@@ -54,7 +54,7 @@
 
 ### 项目形态
 
-这是运行在 Microchip Mi-V RV32 RISC-V 软核上的裸机 MCU 控制工程。当前以 DAC8550 输出测试为业务入口，但核心价值是 RISC-V 软核裸机控制框架。
+这是运行在 Microchip Mi-V RV32 RISC-V 软核上的裸机 MCU 控制工程，在整个 SmartFusion2 系统中属于辅助/子模块。当前以 DAC8550 输出测试为业务入口，但核心价值是 RISC-V 软核裸机控制框架，以及与 MSS/fabric 的协同能力。
 
 ### 主要能力
 
@@ -81,6 +81,7 @@
 
 - 不建议把项目说成“只做 SPI DAC”。
 - 更稳的说法是“以 DAC8550 作为外设样例验证 RISC-V 软核裸机控制框架”。
+- 简历和面试中不应让 MiV-RV32 抢过 `V3LoadX` 主项目权重；它更适合作为“异构软核协同”和“RISC-V 裸机能力”的补充亮点。
 
 ## 双工程协同
 

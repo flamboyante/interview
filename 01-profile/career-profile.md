@@ -41,18 +41,18 @@
 MSS/Cortex-M3 工程当前定位：
 
 - 工程名/代号：`V3LoadX`。
-- 项目形态：运行在 SmartFusion2 Cortex-M3 上的裸机 BMU 管理控制固件。
+- 项目形态：运行在 SmartFusion2 Cortex-M3 上的裸机 BMU 管理控制固件，是 SmartFusion2 项目的主工程。
 - 主要职责：多链路通信接入、遥测遥控处理、远程升级、Flash 镜像管理、JTAG 互助重构、电压电流监控、主备冗余、TMR/三模控制、PL 寄存器协同和现场调试维护。
 - 软件形态：裸机超级循环，无 RTOS；通过主循环轮询、状态机、外设回调和 Timer 中断协作。
 - 协同方式：Cortex-M3 通过 fabric 地址空间、CoreIP 与 PL 寄存器和 FPGA fabric 协作。
 
 MiV-RV32 工程当前定位：
 
-- 项目形态：基于 Microchip Mi-V RV32 RISC-V 软核的裸机 MCU 控制工程。
+- 项目形态：基于 Microchip Mi-V RV32 RISC-V 软核的裸机 MCU 控制工程，是 SmartFusion2 系统中的子模块/辅助控制工程。
 - 主要职责：RISC-V 裸机启动、中断系统、板级外设驱动、CPU 与 PL 侧寄存器通信、串口调试和事件主循环。
 - 当前能力：UART、SPI、DAC8550、PL 寄存器协议、system tick、trap dump。
 - 软件结构：`app / bsp / drivers / platform / hal / miv_rv32_hal` 分层。
-- 重点价值：不应只描述为 DAC demo，而应描述为 RISC-V 软核裸机控制框架。
+- 重点价值：不应只描述为 DAC demo，也不应抢过 MSS 主工程权重；更适合作为 RISC-V 软核裸机控制框架和异构协同能力的补充亮点。
 
 待补充：
 
@@ -66,20 +66,22 @@ MiV-RV32 工程当前定位：
 
 当前已知事实：
 
-- 以 PCIe 模块为主要证据。
-- 对 SPI、UART 等外设驱动有基础了解。
-- PCIe 模块为用户与同事共同开发维护。
-- 参考代码路径：`/home/flamboy/linux-learning/labs/week-pcie/endpoint.c`。
-- 用户态也有较多工作，包括状态管理、处理、告警、分发等业务链路。
-- Linux SPI/UART 模块是在现有基础上开发和维护。
-- 存在部分自定义 UIO 相关内容，但代码暂无法提供。
+- Linux 方向以 PCIe 模块为主要证据线。
+- 用户与同事共同编写、维护过 PCIe endpoint 相关驱动；该驱动是在前人基础上持续改造维护形成的完整内核驱动，用户表示整个文件都能理解并讲清。
+- 可参考雏形代码：`/home/flamboy/linux-learning/labs/week-pcie/endpoint.c`，该文件由内部工程搬运整理而来。
+- PCIe 不只是内核驱动，还包含较多用户态配套逻辑，包括初始化、整合、状态管理、处理、上报、告警、分发和维护等。
+- SPI、UART 模块主要是在现有架构基础上，利用 Linux 内核驱动接口进行操作和维护。
+- 部分功能通过自定义 UIO 直接访问寄存器实现，但内部代码暂无法提供。
+- Linux 方向当前更适合作为 BSP/Driver/系统集成证据线，而不是包装成纯 Linux 内核专家。
+- 用户在 `/home/flamboy/linux-learning` 中有较多个人 Linux 驱动学习与实验材料，可作为系统补强证据。
 
 待补充：
 
-- PCIe 驱动具体负责范围：probe/remove、BAR/MMIO、MSI、中断、ioctl、mmap 等哪些是主写，哪些是维护。
-- 调试过的典型问题与证据。
-- 用户态状态管理/告警/分发的模块边界。
-- 自定义 UIO 的用途、资源暴露方式和风险控制。
+- PCIe 驱动具体负责范围：probe/remove、BAR/MMIO、MSI、中断、ioctl、mmap 等哪些是改造维护重点，哪些只是理解和联调。
+- 用户态 PCIe 初始化、状态管理、上报、告警、分发的模块边界。
+- 调试过的 PCIe 典型问题与证据。
+- SPI/UART 使用的是标准内核接口、已有驱动封装，还是自定义接口。
+- 自定义 UIO 的用途、暴露哪些寄存器资源、如何做访问边界和异常保护。
 
 ### QEMU 建模验证项目
 
