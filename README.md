@@ -16,9 +16,17 @@
 ```text
 00-control/
   strategy.md              # 总体策略、阶段目标、投递方向
+  project-state.md         # 当前项目状态快照，重开 session 优先阅读
+  one-month-action-plan.md # 1 个月面试准备行动计划
+  linux-study-plan.md      # Linux 面试导向学习计划
+  mcu-soc-study-plan.md    # MCU/SoC 项目深挖与面试化计划
 
 01-profile/
   career-profile.md        # 个人基础档案、项目概况、约束条件
+
+02-projects/
+  smartfusion2-overview.md # SmartFusion2/V3LoadX/MiV-RV32 项目总览
+  linux-bsp-driver-overview.md # Linux BSP/Driver 项目总览
 
 90-assistant-notes/
   evidence-map.md          # 助手工作笔记：证据链、风险、待确认问题
